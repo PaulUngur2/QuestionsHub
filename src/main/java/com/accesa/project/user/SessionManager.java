@@ -1,6 +1,7 @@
 package com.accesa.project.user;
 
-import java.security.NoSuchAlgorithmException;
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.sql.SQLException;
 
 public class SessionManager {
@@ -17,8 +18,33 @@ public class SessionManager {
         return instance;
     }
 
-    public String getCurrentUserName(){
-        return currentUser.getName();
+    public User login(String username, String password) throws SQLException {
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.getUserByUsername(username);
+        try {
+            if (user != null && BCrypt.checkpw(password, user.getPassword())) {
+                currentUser = user;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error checking password: " + e.getMessage());
+        }
+        return currentUser;
+    }
+
+    public boolean createUser(String username, String password, Boolean privileges) throws SQLException {
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.getUserByUsername(username);
+        if (user == null && currentUser.isAdmin()) {
+            userDAO.insertUser(username, password, privileges);
+            return true;
+        }
+        return false;
+    }
+
+    public void addTokens(int tokens) throws SQLException {
+        UserDAO userDAO = new UserDAO();
+        currentUser.addTokens(tokens);
+        userDAO.updateUserTokens(currentUser.getId(), currentUser.getTokens());
     }
 
     public int getCurrentUserTokens(){
@@ -29,21 +55,16 @@ public class SessionManager {
         return currentUser.isAdmin();
     }
 
-    public User login(String username, String password) throws SQLException, NoSuchAlgorithmException {
-        UserDAO userDAO = new UserDAO();
-        User user = userDAO.getUserByUsername(username);
-        if (user != null && password.equals(user.getPassword())) {
-            //BCrypt.checkpw(password, user.getPassword())
-            currentUser = user;
-        }
-        return user;
-    }
-
     public void logout() {
         currentUser = null;
     }
 
-    public boolean isLoggedIn() {
-        return currentUser != null;
+    public int getCurrentUserId(){
+        return currentUser.getId();
     }
+
+    public String getCurrentUserName(){
+        return currentUser.getName();
+    }
+
 }

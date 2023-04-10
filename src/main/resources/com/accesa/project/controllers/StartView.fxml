@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="480.0" prefWidth="720.0" stylesheets="@StartView.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.accesa.project.main.StartController">
+<AnchorPane fx:id="rootPane" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.accesa.project.controllers.StartController">
     <style>-fx-background-color: #121212;</style>
     <Label prefWidth="720.0" text="QuestionsHub" textFill="WHITE" AnchorPane.topAnchor="50.0">
         <style>-fx-font-size: 24px; -fx-alignment: center;</style>
@@ -18,10 +18,10 @@
         </font>
     </Label>
     <VBox layoutX="221.0" layoutY="127.0" prefHeight="162.0" prefWidth="497.0" AnchorPane.leftAnchor="221.0" AnchorPane.rightAnchor="224.0">
-        <Label prefHeight="25.0" prefWidth="100.0" style="-fx-text-fill: White;" text="Username:" textFill="WHITE">
-         <font>
-            <Font name="Helvetica" size="15.0" />
-         </font>
+        <Label prefHeight="25.0" prefWidth="100.0" text="Username:" textFill="WHITE">
+            <font>
+                <Font name="Helvetica" size="15.0" />
+            </font>
          <VBox.margin>
             <Insets bottom="5.0" />
          </VBox.margin></Label>
@@ -34,8 +34,9 @@
                 <Insets bottom="20.0" />
             </VBox.margin>
         </TextField>
-        <Label prefHeight="25.0" prefWidth="100.0" style="-fx-text-fill: White;" text="Password:" textFill="WHITE">
-         <font>
+        <Label prefHeight="25.0" prefWidth="100.0" text="Password:" textFill="WHITE">
+            <style>-fx-text-fill: White;</style>
+            <font>
             <Font name="Helvetica" size="15.0" />
          </font>
          <VBox.margin>
@@ -50,7 +51,7 @@
                 <Insets bottom="20.0" />
             </VBox.margin>
         </PasswordField>
-        <Button fx:id="loginButton" onAction="#loginButtonClicked" prefHeight="24.0" prefWidth="275.0" stylesheets="@StartView.css" text="Login">
+        <Button onAction="#loginButtonClicked" prefHeight="24.0" prefWidth="275.0" text="Login">
             <style>-fx-background-color: #1F1B24; -fx-text-fill: White;</style>
             <font>
                 <Font name="Helvectia" size="15.0" />
@@ -69,4 +70,9 @@
          </font>
        </Label>
     </VBox>
+   <Label layoutX="341.0" layoutY="351.0" style="-fx-text-fill: WHITE;">
+      <font>
+         <Font name="Helvetica" size="13.0" />
+      </font>
+   </Label>
 </AnchorPane>

@@ -1,4 +1,4 @@
-package com.accesa.project.main;
+package com.accesa.project.controllers;
 
 import com.accesa.project.user.SessionManager;
 import com.accesa.project.user.User;
@@ -13,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -34,31 +33,27 @@ public class StartController {
     }
 
     @FXML
-    private void loginButtonClicked() throws SQLException, NoSuchAlgorithmException, IOException {
+    private void loginButtonClicked() throws SQLException, IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
         User user = sessionManager.login(username, password);
-        if (user != null) {
-            if (sessionManager.isAdmin()) {
-                showLoggedInSceneAdmin();
-            } else {
-                showLoggedInScene();
-            }
+        if (username.isEmpty() || password.isEmpty()) {
+            errorLabel.setText("Please enter both username and password.");
         } else {
-            errorLabel.setText("Invalid username or password");
+            if (user != null) {
+                if (sessionManager.isAdmin()) {
+                    changeScene("MainAdminView.fxml");
+                } else {
+                    changeScene("MainView.fxml");
+                }
+            } else {
+                errorLabel.setText("Invalid username or password");
+            }
         }
     }
 
-    public void showLoggedInScene() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainView.fxml")));
-        Stage stage = (Stage) rootPane.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void showLoggedInSceneAdmin() throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainAdminView.fxml")));
+    private void changeScene(String fxml) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
         Stage stage = (Stage) rootPane.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

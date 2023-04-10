@@ -1,4 +1,4 @@
-package com.accesa.project;
+package com.accesa.project.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

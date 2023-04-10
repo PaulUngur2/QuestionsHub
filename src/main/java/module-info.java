@@ -8,13 +8,12 @@ module com.accesa.project {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires jbcrypt;
+    requires java.net.http;
 
-    opens com.accesa.project to javafx.fxml;
-    exports com.accesa.project;
     exports com.accesa.project.user;
     opens com.accesa.project.user to javafx.fxml;
-    exports com.accesa.project.main;
-    opens com.accesa.project.main to javafx.fxml;
-    exports com.accesa.project.ranking;
-    opens com.accesa.project.ranking to javafx.fxml;
+    exports com.accesa.project.controllers;
+    opens com.accesa.project.controllers to javafx.fxml;
+    exports com.accesa.project.database;
+    opens com.accesa.project.database to javafx.fxml;
 }

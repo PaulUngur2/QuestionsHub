@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.accesa.project.controllers.AdminAddUserController">
+    <style>-fx-background-color: #121212;</style>
+    <VBox layoutX="221.0" layoutY="127.0" prefHeight="162.0" prefWidth="497.0" AnchorPane.leftAnchor="221.0" AnchorPane.rightAnchor="224.0">
+        <Label prefHeight="25.0" prefWidth="100.0" text="Username:" textFill="WHITE">
+            <style>-fx-text-fill: White;</style>
+            <font>
+                <Font name="Helvetica" size="15.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="5.0" />
+            </VBox.margin></Label>
+        <TextField fx:id="usernameField" promptText="Username">
+            <style>-fx-background-color: #1F1B24; -fx-text-fill: White;</style>
+            <font>
+                <Font name="Helvectia" size="13.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="20.0" />
+            </VBox.margin>
+        </TextField>
+        <Label prefHeight="25.0" prefWidth="100.0" text="Password:" textFill="WHITE">
+            <style>-fx-text-fill: White;</style>
+            <font>
+                <Font name="Helvetica" size="15.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="5.0" />
+            </VBox.margin></Label>
+        <PasswordField fx:id="passwordField" promptText="Password">
+            <style>-fx-background-color: #1F1B24; -fx-text-fill: White;</style>
+            <font>
+                <Font name="Helvectia" size="13.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="20.0" />
+            </VBox.margin>
+        </PasswordField>
+      <CheckBox fx:id="checkBox" mnemonicParsing="false" text="Admin Privileges">
+          <style>-fx-text-fill: White;</style>
+          <font>
+              <Font name="Helvectia" size="13.0" />
+          </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </CheckBox>
+        <Button onAction="#createButtonClicked" prefHeight="24.0" prefWidth="275.0" text="Create User">
+            <style>-fx-background-color: #1F1B24; -fx-text-fill: White;</style>
+            <font>
+                <Font name="Helvectia" size="15.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="20.0" />
+            </VBox.margin>
+        </Button>
+        <Label fx:id="errorLabel" prefHeight="25.0" prefWidth="609.0">
+            <style>-fx-text-fill: red; -fx-alignment: center;</style>
+            <VBox.margin>
+                <Insets bottom="20.0" />
+            </VBox.margin>
+            <font>
+                <Font name="Helvetica" size="15.0" />
+            </font>
+        </Label>
+        <Label fx:id="successLabel" prefHeight="25.0" prefWidth="609.0">
+            <style>-fx-text-fill: green; -fx-alignment: center;</style>
+            <VBox.margin>
+                <Insets bottom="20.0" />
+            </VBox.margin>
+            <font>
+                <Font name="Helvetica" size="15.0" />
+            </font>
+        </Label>
+    </VBox>
+    <Button layoutX="14.0" layoutY="442.0" onAction="#backButtonClicked" prefHeight="24.0" prefWidth="109.0" text="Back" >
+        <style>-fx-background-color: #1F1B24; -fx-text-fill: white;</style>
+    </Button>
+</AnchorPane>

@@ -106,7 +106,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.accesa.project/com.accesa.project.main.Main</mainClass>
+                            <mainClass>com.accesa.project/com.accesa.project.controllers.Main</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
