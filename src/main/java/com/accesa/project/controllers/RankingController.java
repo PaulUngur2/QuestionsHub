@@ -18,11 +18,11 @@ import java.util.Objects;
 
 public class RankingController {
     @FXML
-    public BorderPane rootPane;
+    private BorderPane rootPane;
     @FXML
-    public VBox rankBox;
+    private VBox rankBox;
     @FXML
-    public Label rankLabel;
+    private Label rankLabel;
 
     private SessionManager sessionManager;
     private RanksManager ranksManager;
@@ -35,12 +35,12 @@ public class RankingController {
     }
 
     @FXML
-    public void setRank(int rank) {
+    private void setRank(int rank) {
         rankLabel.setText("Your Rank: " + rank);
     }
 
     @FXML
-    public void showRanking() throws SQLException {
+    private void showRanking() throws SQLException {
         List<String[]> ranks = ranksManager.getRanksList();
         rankBox.getChildren().clear();
         int i = 0;
@@ -58,12 +58,12 @@ public class RankingController {
     }
 
     @FXML
-    public void backButtonClicked() throws IOException {
+    private void backButtonClicked() throws IOException {
         changeScene("MainView.fxml");
     }
 
     @FXML
-    public void logoutButtonClicked() throws IOException {
+    private void logoutButtonClicked() throws IOException {
         sessionManager.logout();
         changeScene("StartView.fxml");
     }

@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,7 +22,7 @@ import java.util.Objects;
 
 public class MainAdminController {
     @FXML
-    public VBox questionBox;
+    private VBox questionBox;
     @FXML
     private BorderPane rootPane;
 
@@ -35,7 +36,7 @@ public class MainAdminController {
     }
 
     @FXML
-    public void showQuestions() {
+    private void showQuestions() {
         List<String[]> questions = questionsManager.getApprovalList();
         questionBox.getChildren().clear();
         for (String[] question : questions) {
@@ -58,6 +59,9 @@ public class MainAdminController {
         VBox questionBox = createQuestionBox(question);
 
         dialog.getDialogPane().setContent(questionBox);
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/accesa/project/icon/qHub.png")));
+        stage.getIcons().add(icon);
         ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().add(closeButton);
 
@@ -116,13 +120,13 @@ public class MainAdminController {
     }
 
     @FXML
-    public void logoutButtonClicked() throws IOException {
+    private void logoutButtonClicked() throws IOException {
         sessionManager.logout();
         changeScene("StartView.fxml");
     }
 
     @FXML
-    public void addingButtonClicked() throws IOException {
+    private void addingButtonClicked() throws IOException {
         changeScene("AdminAddUserView.fxml");
     }
 

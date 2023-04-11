@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,7 +22,7 @@ import java.util.Objects;
 
 public class MainController {
     @FXML
-    public VBox questionBox;
+    private VBox questionBox;
     @FXML
     private BorderPane rootPane;
     @FXML
@@ -39,12 +40,12 @@ public class MainController {
     }
 
     @FXML
-    public void setTokens(int tokens) {
+    private void setTokens(int tokens) {
         tokensLabel.setText("Tokens: " + tokens);
     }
 
    @FXML
-   public void showQuestions() throws SQLException {
+   private void showQuestions() throws SQLException {
        List<String[]> questions = questionsManager.getQuestionAnswersList();
        questionBox.getChildren().clear();
        for (String[] question : questions) {
@@ -67,6 +68,9 @@ public class MainController {
         VBox questionBox = createQuestionBox(question);
 
         dialog.getDialogPane().setContent(questionBox);
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/accesa/project/icon/qHub.png")));
+        stage.getIcons().add(icon);
         ButtonType closeButton = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().add(closeButton);
 
@@ -135,18 +139,18 @@ public class MainController {
     }
 
     @FXML
-    public void logoutButtonClicked() throws IOException {
+    private void logoutButtonClicked() throws IOException {
         sessionManager.logout();
         changeScene("StartView.fxml");
     }
 
     @FXML
-    public void rankingButtonClicked() throws IOException {
+    private void rankingButtonClicked() throws IOException {
         changeScene("RankingView.fxml");
     }
 
     @FXML
-    public void addButtonClicked() throws IOException {
+    private void addButtonClicked() throws IOException {
         changeScene("AddQuestionsView.fxml");
     }
 

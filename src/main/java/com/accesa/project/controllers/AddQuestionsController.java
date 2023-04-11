@@ -17,17 +17,17 @@ import java.util.Objects;
 
 public class AddQuestionsController {
     @FXML
-    public Label tokensLabel;
+    private Label tokensLabel;
     @FXML
-    public Label errorLabel;
+    private Label errorLabel;
     @FXML
-    public TextArea questionTextArea;
+    private TextArea questionTextArea;
     @FXML
-    public ComboBox answerComboBox;
+    private ComboBox answerComboBox;
     @FXML
-    public TextField rewardTextField;
+    private TextField rewardTextField;
     @FXML
-    public Label successLabel;
+    private Label successLabel;
     @FXML
     private AnchorPane rootPane;
 
@@ -43,7 +43,7 @@ public class AddQuestionsController {
     }
 
     @FXML
-    public void setTokens(int tokens) {
+    private void setTokens(int tokens) {
         tokensLabel.setText("Tokens: " + tokens);
     }
 
@@ -82,11 +82,11 @@ public class AddQuestionsController {
 
         sessionManager.addTokens(-reward);
         setTokens(sessionManager.getCurrentUserTokens());
-        questionsManager.insertQuestion(question, Boolean.valueOf(answer), reward);
+        questionsManager.insertQuestion(question, Boolean.valueOf(answer), reward, sessionManager.getCurrentUserId());
         successLabel.setText("Question added successfully.");
     }
 
-    public void textFormatting() {
+    private void textFormatting() {
         TextFormatter<String> formatter = new TextFormatter<>(change -> {
             if (change.getControlNewText().length() > 1000) {
                 return null;
@@ -97,7 +97,7 @@ public class AddQuestionsController {
         rewardTextField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
     }
     @FXML
-    public void backButton() throws IOException {
+    private void backButton() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainView.fxml")));
         Stage stage = (Stage) rootPane.getScene().getWindow();
         Scene scene = new Scene(root);

@@ -19,17 +19,17 @@ import java.util.Objects;
 
 public class AdminAddUserController {
     @FXML
-    public AnchorPane rootPane;
+    private AnchorPane rootPane;
     @FXML
-    public Label errorLabel;
+    private Label errorLabel;
     @FXML
-    public TextField usernameField;
+    private TextField usernameField;
     @FXML
-    public PasswordField passwordField;
+    private PasswordField passwordField;
     @FXML
-    public CheckBox checkBox;
+    private CheckBox checkBox;
     @FXML
-    public Label successLabel;
+    private Label successLabel;
 
     private SessionManager sessionManager;
     public void initialize() {
@@ -37,7 +37,7 @@ public class AdminAddUserController {
     }
 
     @FXML
-    public void createButtonClicked() throws SQLException {
+    private void createButtonClicked() throws SQLException {
         successLabel.setText("");
         errorLabel.setText("");
         String name = usernameField.getText();
@@ -45,6 +45,12 @@ public class AdminAddUserController {
         Boolean privileges = checkBox.isSelected();
 
         String encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+        if (name.isEmpty() || password.isEmpty()) {
+            errorLabel.setText("Please fill in all fields!");
+            return;
+        }
+
         if(sessionManager.createUser(name, encryptedPassword, privileges)) {
             successLabel.setText("User created successfully!");
         } else {
@@ -53,7 +59,7 @@ public class AdminAddUserController {
     }
 
     @FXML
-    public void backButtonClicked() throws IOException {
+    private void backButtonClicked() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainAdminView.fxml")));
         Stage stage = (Stage) rootPane.getScene().getWindow();
         Scene scene = new Scene(root);

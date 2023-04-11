@@ -61,7 +61,7 @@ public class QuestionsManager {
         questionsDAO.deleteQuestion(id);
     }
 
-    public void insertQuestion(String question, Boolean answer,  int reward) throws SQLException {
-        questionsDAO.insertQuestion(question, answer, reward);
+    public void insertQuestion(String question, Boolean answer,  int reward, int idUser) throws SQLException {
+        questionsDAO.insertQuestion(question, answer, reward, idUser);
     }
 }
