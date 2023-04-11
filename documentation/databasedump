@@ -1,0 +1,130 @@
+-- MariaDB dump 10.19  Distrib 10.6.12-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: 127.0.0.1    Database: accesa
+-- ------------------------------------------------------
+-- Server version	10.6.12-MariaDB-0ubuntu0.22.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `qHub_accounts`
+--
+
+DROP TABLE IF EXISTS `qHub_accounts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qHub_accounts` (
+  `id_qHub` int(11) NOT NULL AUTO_INCREMENT,
+  `username_qHub` varchar(50) NOT NULL,
+  `password_qHub` varchar(255) NOT NULL,
+  `tokens_qHub` int(11) NOT NULL DEFAULT 0,
+  `badges_qHub` int(11) DEFAULT 0,
+  `privileges_qHub` tinyint(1) NOT NULL DEFAULT 0,
+  `badgesPoints_qHub` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_qHub`),
+  UNIQUE KEY `accesa_accounts_pk` (`username_qHub`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `qHub_interactions`
+--
+
+DROP TABLE IF EXISTS `qHub_interactions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qHub_interactions` (
+  `id_user` int(11) NOT NULL,
+  `id_question` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
+  KEY `qHub_interactions_accesa_accounts_id_accesa_fk` (`id_user`),
+  KEY `qHub_interactions_accesa_questions_questions_id_fk` (`id_question`),
+  CONSTRAINT `qHub_interactions_accesa_accounts_id_accesa_fk` FOREIGN KEY (`id_user`) REFERENCES `qHub_accounts` (`id_qHub`),
+  CONSTRAINT `qHub_interactions_accesa_questions_questions_id_fk` FOREIGN KEY (`id_question`) REFERENCES `qHub_questions` (`questions_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary table structure for view `qHub_orderedRankings`
+--
+
+DROP TABLE IF EXISTS `qHub_orderedRankings`;
+/*!50001 DROP VIEW IF EXISTS `qHub_orderedRankings`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `qHub_orderedRankings` AS SELECT
+ 1 AS `ranking_name`,
+  1 AS `ranking_score` */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `qHub_questions`
+--
+
+DROP TABLE IF EXISTS `qHub_questions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qHub_questions` (
+  `questions_id` int(11) NOT NULL AUTO_INCREMENT,
+  `questions_qHub` varchar(1000) NOT NULL,
+  `answers_qHub` tinyint(1) NOT NULL,
+  `rewards_qHub` int(11) NOT NULL,
+  `approval_qHub` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`questions_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `qHub_rankings`
+--
+
+DROP TABLE IF EXISTS `qHub_rankings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qHub_rankings` (
+  `id_rankings` int(11) NOT NULL AUTO_INCREMENT,
+  `ranking_name` varchar(50) NOT NULL,
+  `ranking_score` int(20) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_rankings`),
+  KEY `qHub_rankings_qHub_accounts_username_qHub_fk` (`ranking_name`),
+  CONSTRAINT `qHub_rankings_qHub_accounts_username_qHub_fk` FOREIGN KEY (`ranking_name`) REFERENCES `qHub_accounts` (`username_qHub`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Final view structure for view `qHub_orderedRankings`
+--
+
+/*!50001 DROP VIEW IF EXISTS `qHub_orderedRankings`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`admin_user`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `qHub_orderedRankings` AS select `qHub_rankings`.`ranking_name` AS `ranking_name`,`qHub_rankings`.`ranking_score` AS `ranking_score` from `qHub_rankings` order by `qHub_rankings`.`ranking_score` desc */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-04-11 22:47:01
